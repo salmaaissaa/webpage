@@ -18,6 +18,7 @@ const db = getDatabase();
 
 var table = document.getElementById("studentsTable");
 
+
 const studentsRef = ref(db, 'Students/' );
 onValue(studentsRef, (snapshot) => {
   const data = snapshot.val();
@@ -35,22 +36,23 @@ onValue(studentsRef, (snapshot) => {
     var cell5 = row.insertCell(4);
 
 
-    // Add some text to the new cells:
+    // // Add some text to the new cells:
     cell1.innerHTML = student.ID;
     cell2.innerHTML = student.Name;
     cell3.innerHTML = student.Router;
     cell4.innerHTML = student.Register;
     cell5.innerHTML = student.Phone;
-    
+
+    // $('#studentsTable').dataTable().fnAddData( [student.ID ] );
+    // $('#studentsTable').dataTable().fnAddData( [student.Name]);
+    // $('#studentsTable').dataTable().fnAddData( [student.Router]);
+    // $('#studentsTable').dataTable().fnAddData( [student.Register]);
+    // $('#studentsTable').dataTable().fnAddData( [student.Phone]);
+
+
+
     });
 });
 
 
-$(document).ready(function() {
 
-    // Find a <table> element with id="studentsTable":
-    
-
-
-    
-});
