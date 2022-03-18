@@ -5,27 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to Firebase Hosting</title>
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/9.6.8/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/9.6.8/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/9.6.8/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/9.6.8/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/9.6.8/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/9.6.8/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/9.6.8/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/9.6.8/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/9.6.8/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/9.6.8/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="./js/app.js"></script>
+    
+
+     <!-- SWAL -->
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   </head>
 
@@ -66,7 +53,7 @@
                                 <input type="password" class="form-control" id="userSIPassword" onblur="checkUserSIPassword()" placeholder="password">
                                 <small id="userSIPasswordError" class="form-text text-danger">Please check your password.</small>
                             </div>
-                            <button type="button" class="btn btn-outline-primary text-uppercase mb-3" id="sign-in">Sign In</button>
+                            <button type="button" class="btn btn-outline-primary text-uppercase mb-3"  id="sign-in">Sign In</button>
                             <p>Not a member yet? Become a member: <a href="./pages/signup.html"><strong class="text-primary text-uppercase showSignUpForm">Sign Up</strong></a></p>
                         </div>
                     </div>
@@ -74,62 +61,15 @@
             </div>
         </div>
     </div>
-      
+
     <script type ="module">
-      import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js';
-      import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
-
-      const firebaseConfig = {
-          apiKey: "AIzaSyCv3eJS4mGYxNOb3hyF6tqvAQe2RNbhOTA",
-          authDomain: "dbp1-efaac.firebaseapp.com",
-          databaseURL: "https://dbp1-efaac-default-rtdb.firebaseio.com",
-          projectId: "dbp1-efaac",
-          storageBucket: "dbp1-efaac.appspot.com",
-          messagingSenderId: "951758113037",
-          appId: "1:951758113037:web:842e2660e124558a7a8844"
-      };
-      const app = initializeApp(firebaseConfig);
       
-      const auth = getAuth(app);
-
-      // Initialize Firebase
-      document.querySelector('#sign-in').addEventListener('click', function(e) {
-      e.preventDefault();
-     
-      var userEmail = document.getElementById("userSIEmail").value;
-      var userPassword = document.getElementById("userSIPassword").value;
-     
-      var userEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      var userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;      
-
-      var checkUserEmailValid = userEmail.match(userEmailFormate);
-      var checkUserPasswordValid = userPassword.match(userPasswordFormate);
-
-      signInWithEmailAndPassword(auth, userEmail, userPassword)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          console.log("good")
-          alert("hi "+userEmail)
-          document.location.href = '/pages/home.html'
-
-
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-        });
-
-    
-  
-  
-  
-  });
-
 
 
 </script>
+
+<script  src="./js/app.js"></script>
+<script type="module" src="./js/firebasefunctions.js"></script>
 
 
     

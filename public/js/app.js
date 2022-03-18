@@ -1,3 +1,40 @@
+
+
+function checkUserSIEmail(){
+    var userSIEmail = document.getElementById("userSIEmail");
+    var userSIEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var flag;
+    if(userSIEmail.value.match(userSIEmailFormate)){
+        flag = false;
+    }else{
+        flag = true;
+    }
+    if(flag){
+        document.getElementById("userSIEmailError").style.display = "block";
+    }else{
+        document.getElementById("userSIEmailError").style.display = "none";
+    }
+}
+// xxxxxxxxxx Sign In Password Validation xxxxxxxxxx
+function checkUserSIPassword(){
+    var userSIPassword = document.getElementById("userSIPassword");
+    var userSIPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;      
+    var flag;
+    if(userSIPassword.value.match(userSIPasswordFormate)){
+        flag = false;
+    }else{
+        flag = true;
+    }    
+    if(flag){
+        document.getElementById("userSIPasswordError").style.display = "block";
+    }else{
+        document.getElementById("userSIPasswordError").style.display = "none";
+    }
+}
+
+
+
+
 function checkUserFullName(){
     var userSurname = document.getElementById("userFullName").value;
     var flag = false;

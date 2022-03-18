@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+      <!-- 
     <script defer src="/__/firebase/9.6.8/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
+
     <script defer src="/__/firebase/9.6.8/firebase-auth-compat.js"></script>
     <script defer src="/__/firebase/9.6.8/firebase-database-compat.js"></script>
     <script defer src="/__/firebase/9.6.8/firebase-firestore-compat.js"></script>
@@ -16,17 +17,20 @@
     <script defer src="/__/firebase/9.6.8/firebase-analytics-compat.js"></script>
     <script defer src="/__/firebase/9.6.8/firebase-remote-config-compat.js"></script>
     <script defer src="/__/firebase/9.6.8/firebase-performance-compat.js"></script>
-    <!-- 
+   
+   
+
+  
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     
-    <script src="../js/app.js" ></script>
-
+    <!-- SWAL -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="bg-light">
     <div class="container-fluid">
@@ -77,82 +81,10 @@
     
     <!-- Custom JavaScript -->
     
-    <script type ="module">
-            import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js';
-            import { getAuth, onAuthStateChanged,createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
-            import { getDatabase ,ref, set,push} from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js';
-
-            const firebaseConfig = {
-                apiKey: "AIzaSyCv3eJS4mGYxNOb3hyF6tqvAQe2RNbhOTA",
-                authDomain: "dbp1-efaac.firebaseapp.com",
-                databaseURL: "https://dbp1-efaac-default-rtdb.firebaseio.com",
-                projectId: "dbp1-efaac",
-                storageBucket: "dbp1-efaac.appspot.com",
-                messagingSenderId: "951758113037",
-                appId: "1:951758113037:web:842e2660e124558a7a8844"
-            };
-            const app = initializeApp(firebaseConfig);
-            
-            const auth = getAuth(app);
-
-            // Initialize Firebase
-            document.querySelector('#sign-up').addEventListener('click', function(e) {
-            e.preventDefault();
-            var userFullName = document.getElementById("userFullName").value;
-            var userSurname = document.getElementById("userSurname").value;
-            var userEmail = document.getElementById("userEmail").value;
-            var userPassword = document.getElementById("userPassword").value;
-            var userFullNameFormate = /^([A-Za-z.\s_-])/;    
-            var userEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            var userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;      
-
-            var checkUserFullNameValid = userFullName.match(userFullNameFormate);
-            var checkUserEmailValid = userEmail.match(userEmailFormate);
-            var checkUserPasswordValid = userPassword.match(userPasswordFormate);
-
-            createUserWithEmailAndPassword(auth,userEmail, userPassword).then((userCredential) => {
-                // var user = firebase.auth().currentUser;
-                const user = userCredential.user;
-
-                var uid;
-                if (user != null) {
-                    uid = user.uid;
-                }
-                var userData = {
-                    userFullName: userFullName,
-                    userSurname: userSurname,
-                    userEmail: userEmail,
-                    
-                }
-
-                const database = getDatabase();
-
-                push(ref(database, '/Users/' ),userData);
-                document.location.href = '/pages/home.html'
 
 
-               
-            }).catch((error) => {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log("er "+errorMessage)
-                // swal({
-                //     type: 'error',
-                //     title: 'Error',
-                //     text: "Error",
-                // })
-            });
-          
-        
-        
-        
-        });
-    
-
-
-    </script>
-
+    <script src="../js/app.js" ></script>
+    <script type="module" src="../js/firebasefunctions.js" ></script>
 
 
 
