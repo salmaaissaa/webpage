@@ -41,14 +41,22 @@
         <div class="row justify-content-center pt-4">
             <h1 class="text-center">Students' Information</h1>
         </div>   
-        <input type="text" onkeyup="tableFilter()" id ="studentsFilter" class="form-control" placeholder="Search by student name" >
-        
+        <div class="row justify-content-center ">
+            <div class="col-11">
+                <input type="text" onkeyup="tableFilter()" id ="studentsFilter" class="form-control" placeholder="Search by student name" >
+
+            </div>
+            <div class="col-1">
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#studentModal">Add Student</button>
+
+            </div>
+        </div>
         <table class="table table-primary table-bordered border-dark table-striped  mt-3" id="studentsTable">
             <thead>
-                <tr>
+                <tr class="table table-light table-bordered border-dark table-striped">
                 <th>ID</th>
                 <th>Name</th>
-                <th>Router</th>
+                <th>Route</th>
                 <th>Register</th>
                 <th>Phone </th>
                 <th>Action </th>
@@ -59,6 +67,46 @@
                 
             </tbody>
         </table>
+
+        <div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="studentModalLabel">New message</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="student-id" class="col-form-label">Student ID:</label>
+                      <input type="number" class="form-control" id="student-id">
+                    </div>
+                    <div class="mb-3">
+                        <label for="student-name" class="col-form-label">Student Name:</label>
+                        <input type="text" class="form-control" id="student-name">
+                      </div>
+                      <div class="mb-3">
+                        <label for="student-phone" class="col-form-label">Student Phone:</label>
+                        <input type="tel" class="form-control" id="student-phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+                      </div>
+                      <div class="mb-3">
+                        <label for="student-route" class="col-form-label">Student route</label>
+                        <input type="text" class="form-control" id="student-route">
+                      </div>
+                      <div class="mb-3">
+                        <label for="student-register" class="col-form-label">Student register</label>
+                        <input type="text" class="form-control" id="student-register">
+                      </div>
+                    
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" id="add-student" class="btn btn-primary">Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
     <!-- ========== jQuery ========== -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -79,7 +127,14 @@
         
           // Loop through all table rows, and hide those who don't match the search query
           for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1]; //td[1] contais students names
+            if (isNaN(filter)) 
+                {
+                    td = tr[i].getElementsByTagName("td")[1]; //td[1] contais students names
+                }
+            else{
+                td = tr[i].getElementsByTagName("td")[0]; //td[1] contais students names
+            }
+            
             if (td) {
               txtValue = td.textContent || td.innerText;
               if (txtValue.toUpperCase().indexOf(filter) > -1) {

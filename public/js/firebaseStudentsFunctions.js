@@ -1,4 +1,4 @@
-import { getDatabase , onValue,child, set,get, ref ,orderByChild,equalTo,query} from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js';
+import { getDatabase , onValue,child, push,set,get, ref ,orderByChild,equalTo,query} from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-database.js';
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js';
 import { getAuth } from 'https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js';
@@ -41,12 +41,10 @@ get(child(dbRef, `Students`)).then((snapshot) => {
     // // Add some text to the new cells:
     cell1.innerHTML = student.ID;
     cell2.innerHTML = student.Name;
-    cell3.innerHTML = student.Router;
+    cell3.innerHTML = student.Route;
     cell4.innerHTML = student.Register;
     cell5.innerHTML = student.Phone;
 
-    var x=student.Name; 
-    console.log(x)
     cell6.innerHTML =`<a onclick=deleteStudent(${student.ID},${row.rowIndex})><i style="color:red" class="fas fa-trash-alt "></i></a> `;
 
 
@@ -115,3 +113,71 @@ async function deleteStudent(id,rowIndex){
 }
 
 window.deleteStudent = deleteStudent; // make function accessible
+
+var addStudent= document.querySelector('#add-student');
+addStudent&& addStudent.addEventListener('click', function(e) {
+  e.preventDefault();
+  var studentId = document.getElementById("student-id").value;
+  var studentName = document.getElementById("student-name").value;
+  var studentPhone = document.getElementById("student-phone").value;
+  var studentRegister = document.getElementById("student-register").value;
+  var studentRoute = document.getElementById("student-route").value;
+
+  if(!studentId || !studentName || !studentPhone || !studentRegister || !studentRoute){
+    
+    Swal.fire(
+      'Error',
+      'Please make sure to fill all the fields',
+      'error'
+    )
+  }
+  else{
+
+
+  var student ={
+    ID:studentId,
+    Name:studentName,
+    Phone:studentPhone,
+    Register:studentRegister,
+    Route:studentRoute
+  }
+
+
+
+  const database = getDatabase();
+
+  push(ref(database, '/Students/' ),student);
+  console.log(student)
+  $('#studentModal').modal('hide');
+  
+  Swal.fire(
+    'Success',
+    'Student added successfully',
+    'success'
+  )
+  var table = document.getElementById("studentsTable");
+  var row = table.insertRow();
+  // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  var cell3 = row.insertCell(2);
+  var cell4 = row.insertCell(3);
+  var cell5 = row.insertCell(4);
+  var cell6 = row.insertCell(5);
+
+
+
+
+  // // Add some text to the new cells:
+  cell1.innerHTML = studentId;
+  cell2.innerHTML = studentName;
+  cell3.innerHTML = studentRoute;
+  cell4.innerHTML = studentRegister;
+  cell5.innerHTML = studentPhone;
+
+  cell6.innerHTML =`<a onclick=deleteStudent(${student.ID},${row.rowIndex})><i style="color:red" class="fas fa-trash-alt "></i></a> `;
+
+
+  }
+
+});
