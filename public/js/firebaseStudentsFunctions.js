@@ -76,6 +76,8 @@ async function deleteStudent(id,rowIndex){
 
             const student = await get(query(dbRef, ...queryConstraints));
 
+            console.log(id)
+            
             if (student.exists()) {
                 console.log("found by name", student.val());
                 for ( var property in student.val() ) {
@@ -87,7 +89,7 @@ async function deleteStudent(id,rowIndex){
                 
 
             } else {
-                student.log("No data available");
+              console.log("No data available");
             return null;
             }
 
@@ -100,19 +102,10 @@ async function deleteStudent(id,rowIndex){
 
         }
       })
-      
-
-
-   
     
-    
-    
-
-
 
 }
 
-window.deleteStudent = deleteStudent; // make function accessible
 
 var addStudent= document.querySelector('#add-student');
 addStudent&& addStudent.addEventListener('click', function(e) {
@@ -122,6 +115,9 @@ addStudent&& addStudent.addEventListener('click', function(e) {
   var studentPhone = document.getElementById("student-phone").value;
   var studentRegister = document.getElementById("student-register").value;
   var studentRoute = document.getElementById("student-route").value;
+  
+  var phoneFormate = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/;
+  var checkPhonelValid = studentPhone.match(phoneFormate);
 
   if(!studentId || !studentName || !studentPhone || !studentRegister || !studentRoute){
     
@@ -131,11 +127,21 @@ addStudent&& addStudent.addEventListener('click', function(e) {
       'error'
     )
   }
+  else if(!checkPhonelValid){
+    
+    Swal.fire(
+      'Error',
+      'Please Enter correct phone number format',
+      'error'
+    )
+   
+      
+  }
   else{
 
 
   var student ={
-    ID:studentId,
+    ID:parseInt(studentId),
     Name:studentName,
     Phone:studentPhone,
     Register:studentRegister,
@@ -178,6 +184,14 @@ addStudent&& addStudent.addEventListener('click', function(e) {
   cell6.innerHTML =`<a onclick=deleteStudent(${student.ID},${row.rowIndex})><i style="color:red" class="fas fa-trash-alt "></i></a> `;
 
 
+  document.getElementById("student-id").value='';
+  document.getElementById("student-name").value='';
+  document.getElementById("student-phone").value='';
+  document.getElementById("student-register").value='';
+  document.getElementById("student-route").value='';
   }
 
+
 });
+
+window.deleteStudent = deleteStudent; // make function accessible
